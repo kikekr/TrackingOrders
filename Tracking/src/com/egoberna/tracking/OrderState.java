@@ -2,6 +2,6 @@ package com.egoberna.tracking;
 
 public interface OrderState {
 
-	public void handle();
+	public void changeStatus(int changeOrderStatusId);
 		
 }
