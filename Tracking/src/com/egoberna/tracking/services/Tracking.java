@@ -34,7 +34,7 @@ public class Tracking {
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String onPostReceived(List<OrderStatusChange> orderStatusChangeList) throws 
+	public void onPostReceived(List<OrderStatusChange> orderStatusChangeList) throws 
 		InvalidStatusException {
 		
 		/**
@@ -42,7 +42,7 @@ public class Tracking {
 		 * @param: orderStatusChangeList: List<OrderStatusChange>
 		 */
 		
-		return processOrderStatusChangeList(orderStatusChangeList);
+		processOrderStatusChangeList(orderStatusChangeList);
 	}
 	
 	private String processOrderStatusChangeList(List<OrderStatusChange> orderStatusChangeList) 
@@ -66,7 +66,7 @@ public class Tracking {
 			// Get or create order
 			Order order = orderDataService.getOrCreateOrder(orderId, changeStatusId);
 			
-			// Change order status
+			// Change the order status
 			order.changeStatus(zonedDateTime, changeStatusId);
 			
 			// Update order
