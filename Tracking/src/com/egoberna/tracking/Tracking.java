@@ -15,9 +15,11 @@ public class Tracking {
 	  @POST
 	  @Consumes(MediaType.APPLICATION_XML)
 	  @Produces(MediaType.TEXT_PLAIN)
-	  public String sayPlainTextHello(OrderStatusChange s) {
-		System.out.println(s);
-	    return "Hello Jersey";
+	  public String sayPlainTextHello(OrderStatusChange orderStatusChange) {
+		System.out.println(orderStatusChange);
+//		System.out.println(orderStatusChange.getOrderId());
+//	    return orderStatusChange.getOrderId();
+		return orderStatusChange.toString();
+//		return "Hello";
 	  }
-	
 }
