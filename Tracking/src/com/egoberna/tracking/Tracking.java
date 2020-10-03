@@ -20,16 +20,20 @@ public class Tracking {
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String processOrderStatusChangeList(List<OrderStatusChange> orderStatusChangeList) {
+	public String processOrderStatusChangeList(List<OrderStatusChange> orderStatusChangeList) throws InvalidStatusChangeException, UnknownOrderStateException {
 		for (int i =0; i < orderStatusChangeList.size(); i++) {
 			OrderStatusChange orderStatusChange = orderStatusChangeList.get(i);
 			int orderId = Integer.parseInt(orderStatusChange.orderId);
-			int changeStatusId = Integer.parseInt(orderStatusChange.orderId);
+			int changeStatusId = Integer.parseInt(orderStatusChange.trackingStatusId);
 			Order order = orderDataService.searchOrder(orderId);
 			if (order == null) {
 				order = new Order(orderId);
+				orderDataService.addOrder(order);
 			}
-			order.changeState(orderId);
+			order.checkStateRestrictions(changeStatusId);
+			order.setState(OrderStateFactory.getOrderState(changeStatusId));
+			System.out.println("New state: " + order.getState());
+			orderDataService.updateOrder(order);
 		}
 		return "List size: " + orderStatusChangeList.size();
 	}

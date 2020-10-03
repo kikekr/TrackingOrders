@@ -4,9 +4,9 @@ import com.egoberna.tracking.OrderState;
 
 public class RecogidoEnAlmacen implements OrderState {
 
-	public final int ID = 4;
+	public static final int ID = 1;
 	
-	public void changeStatus(int changeOrderStatusId) {
+	public void checkStateRestrictions(int changeOrderStatusId) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -16,6 +16,17 @@ public class OrderDataService {
     public void addOrder(Order order) {
     	orderList.add(order);
     }
+   
+    private int searchOrderIndex(int orderId) {
+    	System.out.println("searchOrderIndex " + orderId);
+    	System.out.println(orderList.size());
+    	for (int i = 0; i < orderList.size(); i++) {
+    		if (orderList.get(i).getOrderId() == orderId) {
+    			return i;
+    		}
+    	}
+    	return -1;
+    }
     
     public Order searchOrder(int orderId) {
     	for (int i = 0; i < orderList.size(); i++) {
@@ -24,6 +35,13 @@ public class OrderDataService {
     		}
     	}
     	return null;
+    }
+    
+    public void updateOrder(Order order) {
+    	int index = searchOrderIndex(order.getOrderId());
+    	if (index != -1) {
+        	orderList.set(index, order);
+    	}
     }
  	
 }

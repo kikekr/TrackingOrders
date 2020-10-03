@@ -3,7 +3,7 @@ package com.egoberna.tracking;
 import com.egoberna.tracking.states.RecogidoEnAlmacen;
 
 public class Order {
-
+	
 	private OrderState state;
 	private int orderId;
 	
@@ -12,8 +12,11 @@ public class Order {
 		this.state = new RecogidoEnAlmacen();
 	}
 	
-	public void changeState(int changeOrderStatusId) {
-		this.state.changeStatus(changeOrderStatusId);
+	public void checkStateRestrictions(int changeOrderStatusId) throws InvalidStatusChangeException, UnknownOrderStateException {
+		this.state.checkStateRestrictions(changeOrderStatusId);
+		System.out.println(
+				"Order " + this.orderId + " changes state from " + this.state + " to " + 
+		changeOrderStatusId);
 	}
 
 	public OrderState getState() {
