@@ -13,6 +13,8 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import com.egoberna.tracking.states.RecogidoEnAlmacen;
+
 @Path("/tracking")
 @Consumes(MediaType.APPLICATION_XML)
 public class Tracking {
@@ -23,27 +25,20 @@ public class Tracking {
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String processOrderStatusChangeList(List<OrderStatusChange> orderStatusChangeList) throws InvalidStatusException {
-//		try {
-			for (int i =0; i < orderStatusChangeList.size(); i++) {
-				OrderStatusChange orderStatusChange = orderStatusChangeList.get(i);
-				int orderId = Integer.parseInt(orderStatusChange.orderId);
-				int changeStatusId = Integer.parseInt(orderStatusChange.trackingStatusId);
-				Order order = orderDataService.searchOrder(orderId);
-				if (order == null) {
-					order = new Order(orderId);
-					orderDataService.addOrder(order);
-				}
-				order.checkStateRestrictions(changeStatusId);
-				order.setState(OrderStateFactory.getOrderState(changeStatusId));
-				System.out.println("New state: " + order.getState());
-				orderDataService.updateOrder(order);
-			}
-			return "List size: " + orderStatusChangeList.size();
-//		}
-//		catch (InvalidStatusException ex) {
-//			return ex.getMessage();
-//		}
+	public String onPostReceived(List<OrderStatusChange> orderStatusChangeList) throws InvalidStatusException {
+		return processOrderStatusChangeList(orderStatusChangeList);
+	}
+	
+	private String processOrderStatusChangeList(List<OrderStatusChange> orderStatusChangeList) throws InvalidStatusException {
+		for (int i =0; i < orderStatusChangeList.size(); i++) {
+			OrderStatusChange orderStatusChange = orderStatusChangeList.get(i);
+			int changeStatusId = Integer.parseInt(orderStatusChange.trackingStatusId);
+			int orderId = Integer.parseInt(orderStatusChange.orderId);
+			Order order = orderDataService.getOrCreateOrder(orderId, changeStatusId);
+			order.changeStatus(changeStatusId);
+			orderDataService.updateOrder(order);
+		}
+		return "List size: " + orderStatusChangeList.size();
 	}
 	
 }
