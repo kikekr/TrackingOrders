@@ -1,14 +1,14 @@
 package com.egoberna.tracking.services;
 
-import java.util.Date;
-
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement; 
 
 @XmlRootElement(name="orderTracking")
 public class OrderStatusChange {
+	
+	/**
+	 * Class which represents an order status change register request received from the web service
+	 */
 	
     @XmlElement(name="orderId")
     public String orderId;
@@ -27,16 +27,4 @@ public class OrderStatusChange {
 				+ ", changeStatusDate=" + changeStatusDate + "]";
 	}
 
-//	public String getOrderId() {
-//		return this.orderId;
-//	}
-//
-//	public void setOrderId(String orderId) {
-//		this.orderId = orderId;
-//	}
-//	
-    
-	
-	
-    
 }
