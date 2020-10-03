@@ -14,14 +14,15 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_XML)
 public class Tracking {
 
-	  @POST
-	  @Consumes(MediaType.APPLICATION_XML)
-	  @Produces(MediaType.TEXT_PLAIN)
-	  public String sayPlainTextHello(List<OrderStatusChange> orderStatusChangeList) {
-		System.out.println(orderStatusChangeList.size() + "elements");
-//		System.out.println(orderStatusChange.getOrderId());
-//	    return orderStatusChange.getOrderId();
-		return "" + orderStatusChangeList.size();
-//		return "Hello";
-	  }
+	private OrderStatusChangeDataService dataService = OrderStatusChangeDataService.getInstance();
+
+	@POST
+	@Consumes(MediaType.APPLICATION_XML)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String sayPlainTextHello(List<OrderStatusChange> orderStatusChangeList) {
+		for (int i =0; i < orderStatusChangeList.size(); i++) {
+			dataService.addOrderStatusChange(orderStatusChangeList.get(i));
+		}
+		return "List size: " + orderStatusChangeList.size();
+	}
 }
