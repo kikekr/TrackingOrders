@@ -58,7 +58,7 @@ public class Tracking {
 		for (int i =0; i < orderStatusChangeList.size(); i++) {
 			OrderStatusChange orderStatusChange = orderStatusChangeList.get(i);
 			
-			// Parse parameters
+			// Parse order status change parameters
 			int changeStatusId = Integer.parseInt(orderStatusChange.trackingStatusId);
 			int orderId = Integer.parseInt(orderStatusChange.orderId);
 			ZonedDateTime zonedDateTime = ZonedDateTime.parse(orderStatusChange.changeStatusDate);
@@ -66,7 +66,7 @@ public class Tracking {
 			// Get or create order
 			Order order = orderDataService.getOrCreateOrder(orderId, changeStatusId);
 			
-			// Change status
+			// Change order status
 			order.changeStatus(zonedDateTime, changeStatusId);
 			
 			// Update order

@@ -62,7 +62,11 @@ public class Order {
 		 */
 		
 		if (statusChangeHistory.size() > 0) {
+			
+			// Sort status change history by date
 			Collections.sort(statusChangeHistory, new SortByDate());
+			
+			// Get the last status change before the input date
 			OrderStatusChangeRegister selectedStateRegister = statusChangeHistory.get(0);
 			for (int i = 0; i < statusChangeHistory.size(); i++) {
 				if (statusChangeHistory.get(i).getDate().isBefore(date)) {
@@ -84,14 +88,20 @@ public class Order {
 		 * @param changeOrderStatusId: int
 		 */
 		
+		// Get the order state at requested date
 		OrderState state = getStateAt(date);
+		
+		// If the order hadn't status, raise an exception
 		if (state == null && changeOrderStatusId != RecogidoEnAlmacen.ID) {
 			throw new InvalidStatusChangeException("El estado inicial debe de ser recogido en almacén");
 		}
+		
+		// In other case, delegate in state pattern to check if the status change is valid and does
+		// not violate any rules
 		if (state != null) {
 			state.checkStateRestrictions(changeOrderStatusId);
 		}
-		System.out.println("");
+		
 	}
 	
 	public void changeStatus(ZonedDateTime date, int changeOrderStatusId) throws 
@@ -100,12 +110,20 @@ public class Order {
 		 * Checks that the state change is valid and applies it
 		 * @param date: ZonedDateTime
 		 * @param changeOrderStatusId: int
+		 * @throws InvalidStatusException
 		 */
 		
+		// check if the status change is valid and does not violate any rules
 		checkStateRestrictions(date, changeOrderStatusId);
+		
+		// Instantiate the new order state
 		OrderStatusChangeRegister orderStatusChangeRegister = new OrderStatusChangeRegister(
 				this, OrderStateFactory.getOrderState(changeOrderStatusId), date);
-		addStatusChangeRegister(orderStatusChangeRegister);	}
+		
+		// Add the new order state register
+		addStatusChangeRegister(orderStatusChangeRegister);	
+	
+	}
 	
 	public void addStatusChangeRegister(OrderStatusChangeRegister orderStatusChangeRegister) {
 		/**
