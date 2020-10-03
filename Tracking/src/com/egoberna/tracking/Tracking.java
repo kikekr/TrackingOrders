@@ -9,6 +9,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.ext.ExceptionMapper;
+import javax.ws.rs.ext.Provider;
 
 @Path("/tracking")
 @Consumes(MediaType.APPLICATION_XML)
@@ -20,8 +23,8 @@ public class Tracking {
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
 	@Produces(MediaType.TEXT_PLAIN)
-	public String processOrderStatusChangeList(List<OrderStatusChange> orderStatusChangeList) throws InvalidStatusChangeException, UnknownOrderStateException {
-		try {
+	public String processOrderStatusChangeList(List<OrderStatusChange> orderStatusChangeList) throws InvalidStatusException {
+//		try {
 			for (int i =0; i < orderStatusChangeList.size(); i++) {
 				OrderStatusChange orderStatusChange = orderStatusChangeList.get(i);
 				int orderId = Integer.parseInt(orderStatusChange.orderId);
@@ -37,10 +40,11 @@ public class Tracking {
 				orderDataService.updateOrder(order);
 			}
 			return "List size: " + orderStatusChangeList.size();
-		}
-		catch (InvalidStatusException ex) {
-			return ex.getMessage();
-		}
+//		}
+//		catch (InvalidStatusException ex) {
+//			return ex.getMessage();
+//		}
 	}
+	
 }
 
