@@ -1,4 +1,4 @@
-package com.egoberna.tracking;
+package com.egoberna.tracking.services;
 
 import java.util.Date;
 

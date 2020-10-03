@@ -1,8 +1,9 @@
-package com.egoberna.tracking;
+package com.egoberna.tracking.models;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.egoberna.tracking.exceptions.InvalidStatusException;
 import com.egoberna.tracking.states.RecogidoEnAlmacen;
 
 public class OrderDataService {

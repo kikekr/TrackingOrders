@@ -1,4 +1,4 @@
-package com.egoberna.tracking;
+package com.egoberna.tracking.exceptions;
 
 import java.io.Serializable;
 

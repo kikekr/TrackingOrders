@@ -1,7 +1,6 @@
 package com.egoberna.tracking.states;
 
-import com.egoberna.tracking.InvalidStatusChangeException;
-import com.egoberna.tracking.OrderState;
+import com.egoberna.tracking.exceptions.InvalidStatusChangeException;
 
 public class EnReparto implements OrderState {
 	

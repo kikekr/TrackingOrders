@@ -1,4 +1,4 @@
-package com.egoberna.tracking;
+package com.egoberna.tracking.exceptions;
 
 public class InvalidStatusChangeException extends InvalidStatusException {
 

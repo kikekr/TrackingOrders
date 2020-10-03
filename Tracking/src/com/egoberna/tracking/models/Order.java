@@ -1,4 +1,4 @@
-package com.egoberna.tracking;
+package com.egoberna.tracking.models;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -7,6 +7,11 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
+import com.egoberna.tracking.exceptions.InvalidStatusChangeException;
+import com.egoberna.tracking.exceptions.InvalidStatusException;
+import com.egoberna.tracking.exceptions.UnknownOrderStateException;
+import com.egoberna.tracking.states.OrderState;
+import com.egoberna.tracking.states.OrderStateFactory;
 import com.egoberna.tracking.states.RecogidoEnAlmacen;
 
 public class Order {

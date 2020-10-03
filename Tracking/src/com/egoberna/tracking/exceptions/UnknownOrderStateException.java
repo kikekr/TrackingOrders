@@ -1,4 +1,4 @@
-package com.egoberna.tracking;
+package com.egoberna.tracking.exceptions;
 
 public class UnknownOrderStateException extends InvalidStatusException {
 

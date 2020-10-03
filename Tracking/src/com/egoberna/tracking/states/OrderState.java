@@ -1,4 +1,6 @@
-package com.egoberna.tracking;
+package com.egoberna.tracking.states;
+
+import com.egoberna.tracking.exceptions.InvalidStatusChangeException;
 
 public interface OrderState {
 

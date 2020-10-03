@@ -1,4 +1,4 @@
-package com.egoberna.tracking;
+package com.egoberna.tracking.services;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
@@ -15,6 +15,9 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
+import com.egoberna.tracking.exceptions.InvalidStatusException;
+import com.egoberna.tracking.models.Order;
+import com.egoberna.tracking.models.OrderDataService;
 import com.egoberna.tracking.states.RecogidoEnAlmacen;
 
 @Path("/tracking")

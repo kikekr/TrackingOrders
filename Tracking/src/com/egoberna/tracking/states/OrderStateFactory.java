@@ -1,9 +1,6 @@
-package com.egoberna.tracking;
+package com.egoberna.tracking.states;
 
-import com.egoberna.tracking.states.EnReparto;
-import com.egoberna.tracking.states.Entregado;
-import com.egoberna.tracking.states.IncidenciaEnEntrega;
-import com.egoberna.tracking.states.RecogidoEnAlmacen;
+import com.egoberna.tracking.exceptions.UnknownOrderStateException;
 
 public class OrderStateFactory {
 

@@ -1,6 +1,8 @@
-package com.egoberna.tracking;
+package com.egoberna.tracking.models;
 
 import java.time.ZonedDateTime;
+
+import com.egoberna.tracking.states.OrderState;
 
 public class OrderStatusChangeRegister {
 	
