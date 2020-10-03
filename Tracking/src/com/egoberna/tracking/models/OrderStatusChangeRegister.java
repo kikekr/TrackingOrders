@@ -76,6 +76,11 @@ public class OrderStatusChangeRegister {
 		
 		this.date = date;
 	}
+		
+	@Override
+	public String toString() {
+		return "State " + this.state + " at " + this.date.toString();
+	}
 	
 	
 	

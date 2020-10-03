@@ -20,4 +20,13 @@ public class Entregado implements OrderState {
 				+ "pedido alcance ese estado se descartarán el resto de actualizaciones de "
 				+ "seguimiento que recibamos.");	
 	}
+	
+	public String toString() {
+		return "Entregado";
+	}
+	
+	@Override
+	public int getID() {
+		return ID;
+	}
 }

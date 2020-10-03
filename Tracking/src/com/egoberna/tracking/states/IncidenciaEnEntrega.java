@@ -22,5 +22,14 @@ public class IncidenciaEnEntrega implements OrderState {
 		}
 		
 	}
+	
+	public String toString() {
+		return "IncidenciaEnEntrega";
+	}
+	
+	@Override
+	public int getID() {
+		return ID;
+	}
 
 }

@@ -16,4 +16,6 @@ public interface OrderState {
 	 * @throws InvalidStatusChangeException
 	 */	
 	
+	public int getID();
+	
 }

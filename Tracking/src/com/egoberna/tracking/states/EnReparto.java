@@ -21,5 +21,16 @@ public class EnReparto implements OrderState {
 					+ "puede transitar a este estado desde el resto de estados.");
 		}
 	}
+	
+	public String toString() {
+		return "EnReparto";
+	}
 
+	@Override
+	public int getID() {
+		return ID;
+	}
+	
+	
+ 
 }

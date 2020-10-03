@@ -20,4 +20,12 @@ public class RecogidoEnAlmacen implements OrderState {
 		
 	}
 
+	public String toString() {
+		return "RecogidoEnAlmacén";
+	}
+	
+	@Override
+	public int getID() {
+		return ID;
+	}
 }

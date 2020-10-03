@@ -80,6 +80,40 @@ public class Order {
 		}
 	}
 	
+	public OrderState getNextState(ZonedDateTime date) {
+		/**
+		 * Returns the next order state at specific date and time
+		 * @param date: ZonedDateTime
+		 * @return OrderState
+		 */
+		
+		if (statusChangeHistory.size() > 0) {
+			
+			// Sort status change history by date
+			Collections.sort(statusChangeHistory, new SortByDate());
+			
+			// Get the last status change before the input date
+			OrderStatusChangeRegister selectedStateRegister = statusChangeHistory.get(0);
+			int i = 0;
+			int selectedIndex = -1;
+			for (i = 0; i < statusChangeHistory.size(); i++) {
+				if (statusChangeHistory.get(i).getDate().isBefore(date)) {
+					selectedStateRegister = statusChangeHistory.get(i);
+					selectedIndex = i;
+				}
+			}
+			
+			if (statusChangeHistory.size() >= selectedIndex+2 && selectedIndex != -1) {
+				OrderStatusChangeRegister nextStateRegister = statusChangeHistory.get(selectedIndex+1);
+				if (nextStateRegister != null) {
+					return nextStateRegister.getState();
+				}
+			}
+		}
+		return null;
+	
+	}
+	
 	private void checkStateRestrictions(ZonedDateTime date, int changeOrderStatusId) throws 
 		InvalidStatusException {
 		/**
@@ -87,19 +121,29 @@ public class Order {
 		 * @param date: ZonedDateTime
 		 * @param changeOrderStatusId: int
 		 */
-		
+				
 		// Get the order state at requested date
-		OrderState state = getStateAt(date);
-		
+		OrderState currentState = getStateAt(date);
+		// Get the order desired state for that date
+		OrderState desiredState = OrderStateFactory.getOrderState(changeOrderStatusId);
+
 		// If the order hadn't status, raise an exception
-		if (state == null && changeOrderStatusId != RecogidoEnAlmacen.ID) {
+		if (currentState == null && changeOrderStatusId != RecogidoEnAlmacen.ID) {
 			throw new InvalidStatusChangeException("El estado inicial debe de ser recogido en almacén");
 		}
 		
 		// In other case, delegate in state pattern to check if the status change is valid and does
 		// not violate any rules
-		if (state != null) {
-			state.checkStateRestrictions(changeOrderStatusId);
+		if (currentState != null) {
+			currentState.checkStateRestrictions(desiredState.getID());
+			
+			// Get the next state from that date
+			OrderState nextState = getNextState(date);
+
+			if (nextState != null) {
+				// check if the status change is valid and does not violate any rules
+				desiredState.checkStateRestrictions(nextState.getID());
+			}
 		}
 		
 	}
@@ -112,9 +156,12 @@ public class Order {
 		 * @param changeOrderStatusId: int
 		 * @throws InvalidStatusException
 		 */
-		
+				
 		// check if the status change is valid and does not violate any rules
 		checkStateRestrictions(date, changeOrderStatusId);
+		
+		System.out.println("");
+		
 		
 		// Instantiate the new order state
 		OrderStatusChangeRegister orderStatusChangeRegister = new OrderStatusChangeRegister(
