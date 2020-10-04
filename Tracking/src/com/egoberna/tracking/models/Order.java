@@ -65,17 +65,19 @@ public class Order {
 			Collections.sort(statusChangeHistory, new SortByDate());
 			
 			// Get the last status change before the input date
-			OrderStatusChangeRegister selectedStateRegister = statusChangeHistory.get(0);
+			OrderStatusChangeRegister selectedStateRegister = null;
 			for (int i = 0; i < statusChangeHistory.size(); i++) {
 				if (statusChangeHistory.get(i).getDate().isBefore(date)) {
 					selectedStateRegister = statusChangeHistory.get(i);
 				}
 			}
-			return selectedStateRegister.getState();
+			
+			if (selectedStateRegister != null)
+				return selectedStateRegister.getState();
 		}
-		else {
-			return null;
-		}
+	
+		return null;
+		
 	}
 	
 	public OrderState getNextState(ZonedDateTime date) {
@@ -122,6 +124,9 @@ public class Order {
 		OrderState currentState = getStateAt(date);
 		// Get the order desired state for that date
 		OrderState desiredState = OrderStateFactory.getOrderState(changeOrderStatusId);
+		
+		System.out.println("Current state: " + currentState);
+		System.out.println("Desired state: " + desiredState);
 
 		// If the order hadn't status, raise an exception
 		if (currentState == null && changeOrderStatusId != RecogidoEnAlmacen.ID) {
@@ -135,6 +140,7 @@ public class Order {
 			
 			// Get the next state from that date
 			OrderState nextState = getNextState(date);
+			System.out.println("Next state: " + nextState);
 
 			if (nextState != null) {
 				// check if the status change is valid and does not violate any rules
@@ -153,9 +159,9 @@ public class Order {
 		 * @throws InvalidStatusException
 		 */
 				
+		System.out.println("Trying to change to " + OrderStateFactory.getOrderState(changeOrderStatusId) + " state at " + date.toString());
 		// check if the status change is valid and does not violate any rules
 		checkStateRestrictions(date, changeOrderStatusId);
-		
 		System.out.println("");
 		
 		
@@ -167,6 +173,16 @@ public class Order {
 		this.statusChangeHistory.add(orderStatusChangeRegister);
 	
 	}
+	
+	public void addStatusChangeRegister(OrderStatusChangeRegister orderStatusChangeRegister) {
+		/**
+		 * Adds a status register
+		 * @param orderStatusChangeRegister: OrderStatusChangeRegister
+		 */
+		
+		this.statusChangeHistory.add(orderStatusChangeRegister);
+	}
+	
 
 	static class SortByDate implements Comparator<OrderStatusChangeRegister> {
 		

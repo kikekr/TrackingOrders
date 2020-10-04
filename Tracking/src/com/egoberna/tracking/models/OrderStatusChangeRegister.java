@@ -28,6 +28,8 @@ public class OrderStatusChangeRegister {
 		this.date = date;
 	}
 	
+	public OrderStatusChangeRegister() { };
+	
 	public Order getOrder() {
 		/**
 		 * Returns the order

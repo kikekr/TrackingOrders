@@ -46,7 +46,13 @@ public class OrderStatusTest {
 		order.changeStatus(ZonedDateTime.parse("2019-01-27T07:17:23.108+00:00"), RecogidoEnAlmacen.ID);
 		order.changeStatus(ZonedDateTime.parse("2019-01-27T10:17:23.108+00:00"), EnReparto.ID);
 		order.changeStatus(ZonedDateTime.parse("2019-01-27T08:17:23.108+00:00"), Entregado.ID);
-
+	}
+	
+	@Test(expected=InvalidStatusException.class)
+	public void testDisplacedStatusChange3() throws InvalidStatusException {
+		Order order = new Order(0);
+		order.changeStatus(ZonedDateTime.parse("2019-01-28T07:18:23.108+00:00"), RecogidoEnAlmacen.ID);
+		order.changeStatus(ZonedDateTime.parse("2019-01-27T10:17:23.108+00:00"), EnReparto.ID);
 	}
 //	
 }
