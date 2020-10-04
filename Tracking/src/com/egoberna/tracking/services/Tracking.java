@@ -33,7 +33,7 @@ public class Tracking {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_XML)
-	 @Produces(MediaType.TEXT_XML)
+	@Produces(MediaType.TEXT_XML)
 	public String onPostReceived(List<OrderStatusChange> orderStatusChangeList) throws 
 		InvalidStatusException {
 		
@@ -46,7 +46,7 @@ public class Tracking {
 	    return "<?xml version=\"1.0\"?>" + "<tracking> Operation completed successfully" + "</tracking>";
 	}
 	
-	private String processOrderStatusChangeList(List<OrderStatusChange> orderStatusChangeList) 
+	private void processOrderStatusChangeList(List<OrderStatusChange> orderStatusChangeList) 
 			throws InvalidStatusException {
 		
 		/**
@@ -73,7 +73,7 @@ public class Tracking {
 			// Update order
 			orderDataService.updateOrder(order);			
 		}
-		return "List size: " + orderStatusChangeList.size();
+
 	}
 	
 }
