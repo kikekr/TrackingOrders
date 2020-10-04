@@ -168,19 +168,10 @@ public class Order {
 				this, OrderStateFactory.getOrderState(changeOrderStatusId), date);
 		
 		// Add the new order state register
-		addStatusChangeRegister(orderStatusChangeRegister);	
-	
-	}
-	
-	public void addStatusChangeRegister(OrderStatusChangeRegister orderStatusChangeRegister) {
-		/**
-		 * Adds a status register
-		 * @param orderStatusChangeRegister: OrderStatusChangeRegister
-		 */
-		
 		this.statusChangeHistory.add(orderStatusChangeRegister);
-	}
 	
+	}
+
 	static class SortByDate implements Comparator<OrderStatusChangeRegister> {
 		
 		/**
