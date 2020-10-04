@@ -1,24 +1,17 @@
 package com.egoberna.tracking.services;
 
 import java.time.ZonedDateTime;
-import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
 
 import com.egoberna.tracking.exceptions.InvalidStatusException;
 import com.egoberna.tracking.models.Order;
 import com.egoberna.tracking.models.OrderDataService;
-import com.egoberna.tracking.states.RecogidoEnAlmacen;
 
 @Path("/tracking")
 @Consumes(MediaType.APPLICATION_XML)

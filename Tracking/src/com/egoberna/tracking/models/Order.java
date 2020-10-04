@@ -4,12 +4,10 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import com.egoberna.tracking.exceptions.InvalidStatusChangeException;
 import com.egoberna.tracking.exceptions.InvalidStatusException;
-import com.egoberna.tracking.exceptions.UnknownOrderStatusException;
 import com.egoberna.tracking.states.OrderState;
 import com.egoberna.tracking.states.OrderStateFactory;
 import com.egoberna.tracking.states.RecogidoEnAlmacen;
@@ -93,12 +91,10 @@ public class Order {
 			Collections.sort(statusChangeHistory, new SortByDate());
 			
 			// Get the last status change before the input date
-			OrderStatusChangeRegister selectedStateRegister = statusChangeHistory.get(0);
 			int i = 0;
 			int selectedIndex = -1;
 			for (i = 0; i < statusChangeHistory.size(); i++) {
 				if (statusChangeHistory.get(i).getDate().isBefore(date)) {
-					selectedStateRegister = statusChangeHistory.get(i);
 					selectedIndex = i;
 				}
 			}

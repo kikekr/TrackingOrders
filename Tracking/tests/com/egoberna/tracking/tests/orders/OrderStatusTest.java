@@ -6,11 +6,9 @@ import org.junit.Test;
 
 import com.egoberna.tracking.exceptions.InvalidStatusException;
 import com.egoberna.tracking.models.Order;
-import com.egoberna.tracking.models.OrderStatusChangeRegister;
 import com.egoberna.tracking.states.EnReparto;
 import com.egoberna.tracking.states.Entregado;
 import com.egoberna.tracking.states.IncidenciaEnEntrega;
-import com.egoberna.tracking.states.OrderStateFactory;
 import com.egoberna.tracking.states.RecogidoEnAlmacen;
 
 public class OrderStatusTest {
