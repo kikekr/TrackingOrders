@@ -107,6 +107,9 @@ public class Order {
 					return nextStateRegister.getState();
 				}
 			}
+			else if (selectedIndex == -1 && statusChangeHistory.size() > 0) {
+				return statusChangeHistory.get(0).getState();
+			}
 		}
 		return null;
 	
@@ -125,8 +128,8 @@ public class Order {
 		// Get the order desired state for that date
 		OrderState desiredState = OrderStateFactory.getOrderState(changeOrderStatusId);
 		
-		System.out.println("Current state: " + currentState);
-		System.out.println("Desired state: " + desiredState);
+//		System.out.println("Current state: " + currentState);
+//		System.out.println("Desired state: " + desiredState);
 
 		// If the order hadn't status, raise an exception
 		if (currentState == null && changeOrderStatusId != RecogidoEnAlmacen.ID) {
@@ -140,7 +143,7 @@ public class Order {
 			
 			// Get the next state from that date
 			OrderState nextState = getNextState(date);
-			System.out.println("Next state: " + nextState);
+//			System.out.println("Next state: " + nextState);
 
 			if (nextState != null) {
 				// check if the status change is valid and does not violate any rules
@@ -159,10 +162,10 @@ public class Order {
 		 * @throws InvalidStatusException
 		 */
 				
-		System.out.println("Trying to change to " + OrderStateFactory.getOrderState(changeOrderStatusId) + " state at " + date.toString());
+//		System.out.println("Trying to change to " + OrderStateFactory.getOrderState(changeOrderStatusId) + " state at " + date.toString());
 		// check if the status change is valid and does not violate any rules
 		checkStateRestrictions(date, changeOrderStatusId);
-		System.out.println("");
+//		System.out.println("");
 		
 		
 		// Instantiate the new order state
