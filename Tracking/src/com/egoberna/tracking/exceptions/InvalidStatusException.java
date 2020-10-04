@@ -11,7 +11,7 @@ public class InvalidStatusException extends Exception implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public InvalidStatusException(String errorMessage) {
-		super(errorMessage);
+		super("<?xml version=\"1.0\"?><tracking>" + errorMessage + "</tracking>");
 	}
 	
 }

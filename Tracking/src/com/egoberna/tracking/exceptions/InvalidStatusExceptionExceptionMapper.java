@@ -25,7 +25,7 @@ public class InvalidStatusExceptionExceptionMapper implements ExceptionMapper<In
         return Response
                 .status(Response.Status.BAD_REQUEST)
                 .entity(exception.getMessage())
-                .type( MediaType.TEXT_PLAIN)
+                .type( MediaType.TEXT_XML)
                 .build();
     }
 
